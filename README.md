@@ -1,1 +1,1 @@
-## Repositório do projeto de laboratório de programação modular, usando java spring boot.
+## Repositório do projeto VerdeVida, usando java spring boot.
