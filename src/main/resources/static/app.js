@@ -1,5 +1,5 @@
 const req = document.getElementById('reqcards')
-const url = 'http://localhost:8080/requisicoes'
+const url = 'http://localhost:8080/mesas'
 var requisicoes;
 
 async function getHousesArray() {
@@ -22,10 +22,9 @@ async function printCards() {
 function cardTemplate(house) {
 
     let imovel = `<div class="card">
-      <h3>${house.cliente}</h3>
-      <small><b>ID da requisição:</b> ${house.id}</small><br>
-      <small><b>Quantidade de Pessoas: </b>${house.quantidade_pessoas}</small><br>
-      <small><b>Mesa:</b> ${house.mesa}</small><br>
+      <h3>Mesa ${house.id}</h3>
+      <small><b>Capacidade: </b>${house.capacidade}</small><br>
+      <small><b>Está cheia?</b> ${house.estaCheia}</small><br>
     </div>`
     return imovel;
 
