@@ -18,6 +18,7 @@ public class RequisicaoController {
     @PostMapping
     public ResponseEntity<Requisicao> criarRequisicao(@RequestBody Requisicao requisicao) {
         Requisicao novaRequisicao = requisicaoService.criarRequisicao(requisicao);
+        requisicaoService.alocarRequisicao(requisicao);
         return ResponseEntity.ok(novaRequisicao);
     }
 
