@@ -16,8 +16,8 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping
-    public ResponseEntity<Pedido> criarPedido(@RequestBody Pedido pedido) {
-        Pedido novoPedido = pedidoService.criarPedido(pedido);
+    public ResponseEntity<Pedido> criarPedido(@RequestBody Pedido pedido, @RequestParam List<Long> itensIds) {
+        Pedido novoPedido = pedidoService.criarPedido(pedido, itensIds);
         return ResponseEntity.ok(novoPedido);
     }
 
@@ -50,4 +50,3 @@ public class PedidoController {
         return ResponseEntity.noContent().build();
     }
 }
-

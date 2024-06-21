@@ -1,12 +1,16 @@
 package VerdeVida.services;
 
-import VerdeVida.models.Pedido;
-import VerdeVida.repositories.PedidoRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import VerdeVida.models.Item;
+import VerdeVida.models.Pedido;
+import VerdeVida.repositories.ItemRepository;
+import VerdeVida.repositories.PedidoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PedidoService {
@@ -14,7 +18,13 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    public Pedido criarPedido(Pedido pedido) {
+    @Autowired
+    private ItemRepository itemRepository;
+
+    @Transactional
+    public Pedido criarPedido(Pedido pedido, List<Long> itensIds) {
+        List<Item> itens = itemRepository.findAllById(itensIds);
+        pedido.setItens(itens);
         return pedidoRepository.save(pedido);
     }
 
@@ -29,11 +39,8 @@ public class PedidoService {
     public Pedido atualizarPedido(Long id, Pedido pedidoAtualizado) {
         return pedidoRepository.findById(id)
                 .map(pedido -> {
-                    pedido.setItem(pedidoAtualizado.getItem());
+                    pedido.setItens(pedidoAtualizado.getItens());
                     pedido.setQuantidade(pedidoAtualizado.getQuantidade());
-                    pedido.setTipoPagamento(pedidoAtualizado.getTipoPagamento());
-                    pedido.setDetalhePagamento(pedidoAtualizado.getDetalhePagamento());
-                    pedido.setValorFinal(pedidoAtualizado.getItem().getPreco() * pedidoAtualizado.getQuantidade());
                     return pedidoRepository.save(pedido);
                 })
                 .orElseThrow(() -> new RuntimeException("Pedido não encontrado"));
@@ -43,4 +50,3 @@ public class PedidoService {
         pedidoRepository.deleteById(id);
     }
 }
-
