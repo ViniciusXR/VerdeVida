@@ -1,21 +1,20 @@
 package VerdeVida.models;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@DiscriminatorValue("PIX")
+@PrimaryKeyJoinColumn(name = "pagamentoId")
 public class Pix extends Pagamento {
 
-    
+    private String nomeEmitente;
 
     public Pix() {}
 
     public Pix(double valor, LocalDate dataPagamento, String nomeEmitente) {
         super(valor, dataPagamento);
-        super.setNomeEmitente(nomeEmitente);
+        this.nomeEmitente = nomeEmitente;
     }
 
     @Override
@@ -28,6 +27,4 @@ public class Pix extends Pagamento {
     public LocalDate calcularDataRecebimento() {
         return getDataPagamento();
     }
-
 }
-

@@ -1,20 +1,20 @@
 package VerdeVida.models;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@DiscriminatorValue("DEBITO")
+@PrimaryKeyJoinColumn(name = "pagamentoId")
 public class Debito extends Pagamento {
 
+    private String bancoOrigem;
 
     public Debito() {}
 
     public Debito(double valor, LocalDate dataPagamento, String bancoOrigem) {
         super(valor, dataPagamento);
-        super.setBancoOrigem(bancoOrigem);
+        this.bancoOrigem = bancoOrigem;
     }
 
     @Override
@@ -26,6 +26,4 @@ public class Debito extends Pagamento {
     public LocalDate calcularDataRecebimento() {
         return getDataPagamento().plusDays(14);
     }
-
 }
-

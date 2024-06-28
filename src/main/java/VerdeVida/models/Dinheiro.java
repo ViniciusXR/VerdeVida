@@ -1,12 +1,11 @@
 package VerdeVida.models;
 
 import java.time.LocalDate;
-
-import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 
 @Entity
-@DiscriminatorValue("DINHEIRO")
+@PrimaryKeyJoinColumn(name = "pagamentoId")
 public class Dinheiro extends Pagamento {
 
     public Dinheiro() {}
